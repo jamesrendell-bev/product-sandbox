@@ -1,0 +1,13 @@
+# Netlify build for the BirdsEyeView Product Sandbox.
+# Builds the shell at the site root and each app at a subpath, into ./public.
+
+[build]
+  command = "bash build.sh"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Contingency's data backend (Meteostat + CERA) can run as Netlify Functions.
+# The route handlers in apps/contingency/server/routes/ are the reference
+# implementation; wiring them up is the next step so weather data goes live.
