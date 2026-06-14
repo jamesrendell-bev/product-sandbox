@@ -20,6 +20,47 @@ import {
 
 const today = () => new Date().toISOString().slice(0, 10);
 
+// Defined at MODULE scope (not inside AuthorityPanel) so React keeps a stable
+// component identity and the inputs don't lose focus while you type.
+function ActionSelect({ value, onChange, disabled }: { value: RuleAction; onChange: (a: RuleAction) => void; disabled?: boolean }) {
+  return (
+    <select value={value} disabled={disabled} onChange={(e) => onChange(e.target.value as RuleAction)} style={{ minWidth: 90, padding: "3px 6px", fontSize: 12 }}>
+      <option value="refer">refer</option>
+      <option value="decline">decline</option>
+    </select>
+  );
+}
+
+// `money` shows thousands separators and a wide box for large values (TIV);
+// otherwise it's a plain numeric field that allows decimals/steps.
+function Num({ value, onChange, step = 1, suffix, disabled, money }: { value: number; onChange: (n: number) => void; step?: number; suffix?: string; disabled?: boolean; money?: boolean }) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+      {money ? (
+        <input
+          className="miniinput"
+          type="text"
+          inputMode="numeric"
+          value={value ? Math.round(value).toLocaleString("en-US") : ""}
+          disabled={disabled}
+          onChange={(e) => onChange(Number(e.target.value.replace(/[^0-9]/g, "")) || 0)}
+          style={{ minWidth: 150, textAlign: "right" }}
+        />
+      ) : (
+        <input
+          className="miniinput"
+          type="number"
+          step={step}
+          value={value}
+          disabled={disabled}
+          onChange={(e) => onChange(+e.target.value || 0)}
+        />
+      )}
+      {suffix && <span className="poc">{suffix}</span>}
+    </span>
+  );
+}
+
 export function AuthorityPanel({
   authority,
   setAuthority,
@@ -46,18 +87,6 @@ export function AuthorityPanel({
   const update = (patch: Partial<Authority>) =>
     setAuthority({ ...authority, ...patch, meta: { setBy: "Manager / Capacity provider", setDate: today() } });
 
-  const ActionSelect = ({ value, onChange }: { value: RuleAction; onChange: (a: RuleAction) => void }) => (
-    <select value={value} disabled={ro} onChange={(e) => onChange(e.target.value as RuleAction)} style={{ minWidth: 90, padding: "3px 6px", fontSize: 12 }}>
-      <option value="refer">refer</option>
-      <option value="decline">decline</option>
-    </select>
-  );
-  const Num = ({ value, onChange, step = 1, suffix }: { value: number; onChange: (n: number) => void; step?: number; suffix?: string }) => (
-    <span>
-      <input className="miniinput" type="number" step={step} value={value} disabled={ro} onChange={(e) => onChange(+e.target.value || 0)} />
-      {suffix && <span className="poc"> {suffix}</span>}
-    </span>
-  );
 
   function exportJSON() {
     const blob = new Blob([JSON.stringify(authority, null, 2)], { type: "application/json" });
@@ -116,7 +145,7 @@ export function AuthorityPanel({
         <div className="card-head">
           <span className="eyebrow">Access</span>
           <h3><Users size={18} strokeWidth={1.75} /> Who can edit, and where referrals go</h3>
-          <div className="desc">Authority is granted by the capacity provider (e.g. Hudson, for a US coverholder like Amynta). Managers edit the rules; underwriters view them. Anything outside the rules is referred for prior submit.</div>
+          <div className="desc">Authority is granted by the capacity provider (a Lloyd's Syndicate DUA team for a US coverholder). Managers edit the rules; underwriters view them. Anything outside the rules is referred for prior submit.</div>
         </div>
         <div className="controls" style={{ margin: 0, boxShadow: "none", background: "transparent", padding: 0, border: "none" }}>
           <div className="ctl">
@@ -157,8 +186,8 @@ export function AuthorityPanel({
           <tbody>
             <tr>
               <td>Max sum insured per location</td>
-              <td><Num value={authority.maxTIVPerLocation} step={1_000_000} onChange={(n) => update({ maxTIVPerLocation: n })} suffix={sym} /></td>
-              <td><ActionSelect value={authority.maxTIVAction} onChange={(a) => update({ maxTIVAction: a })} /></td>
+              <td><Num disabled={ro} money value={authority.maxTIVPerLocation} onChange={(n) => update({ maxTIVPerLocation: n })} suffix={sym} /></td>
+              <td><ActionSelect disabled={ro} value={authority.maxTIVAction} onChange={(a) => update({ maxTIVAction: a })} /></td>
             </tr>
             <tr>
               <td>Permitted occupancies</td>
@@ -188,8 +217,8 @@ export function AuthorityPanel({
             </tr>
             <tr>
               <td>Max share of the book in one Cresta zone</td>
-              <td><Num value={authority.maxAggregateZoneSharePct} onChange={(n) => update({ maxAggregateZoneSharePct: n })} suffix="%" /></td>
-              <td><ActionSelect value={authority.aggregateAction} onChange={(a) => update({ aggregateAction: a })} /></td>
+              <td><Num disabled={ro} value={authority.maxAggregateZoneSharePct} onChange={(n) => update({ maxAggregateZoneSharePct: n })} suffix="%" /></td>
+              <td><ActionSelect disabled={ro} value={authority.aggregateAction} onChange={(a) => update({ aggregateAction: a })} /></td>
             </tr>
           </tbody>
         </table>
@@ -210,7 +239,7 @@ export function AuthorityPanel({
                 <td>{perilLabel(profile, hr.peril)}</td>
                 <td>{hr.threshold}</td>
                 <td>1-in-<input className="miniinput" type="number" step={5} disabled={ro} value={hr.moreFrequentThanRP} onChange={(e) => { const c = [...authority.hazardRules]; c[i] = { ...hr, moreFrequentThanRP: +e.target.value || 0 }; update({ hazardRules: c }); }} /></td>
-                <td><ActionSelect value={hr.action} onChange={(a) => { const c = [...authority.hazardRules]; c[i] = { ...hr, action: a }; update({ hazardRules: c }); }} /></td>
+                <td><ActionSelect disabled={ro} value={hr.action} onChange={(a) => { const c = [...authority.hazardRules]; c[i] = { ...hr, action: a }; update({ hazardRules: c }); }} /></td>
               </tr>
             ))}
           </tbody>
@@ -226,12 +255,12 @@ export function AuthorityPanel({
         </div>
         <table>
           <tbody>
-            <tr><td>Auto-bind if AAL rate is at or below</td><td><Num value={+(authority.writeMaxAALRate * 100).toFixed(2)} step={0.1} onChange={(n) => update({ writeMaxAALRate: n / 100 })} suffix="% of TIV" /></td><td className="poc">else refer</td></tr>
-            <tr><td>Decline if AAL rate is above</td><td><Num value={+(authority.declineMinAALRate * 100).toFixed(2)} step={0.1} onChange={(n) => update({ declineMinAALRate: n / 100 })} suffix="% of TIV" /></td><td className="poc">decline</td></tr>
-            <tr><td>Refer if data confidence below</td><td><Num value={+(authority.minConfidence * 100).toFixed(0)} onChange={(n) => update({ minConfidence: n / 100 })} suffix="%" /></td><td className="poc">refer</td></tr>
-            <tr><td>Decline if data confidence below</td><td><Num value={+(authority.declineMaxConfidence * 100).toFixed(0)} onChange={(n) => update({ declineMaxConfidence: n / 100 })} suffix="%" /></td><td className="poc">decline</td></tr>
-            <tr><td>Decline if 1-in-100 loss above</td><td><Num value={+(authority.declineMax1in100Rate * 100).toFixed(0)} onChange={(n) => update({ declineMax1in100Rate: n / 100 })} suffix="% of TIV" /></td><td className="poc">decline</td></tr>
-            <tr><td>Charged rate must be at least</td><td><Num value={+(authority.rateFloorPctOfTechnical * 100).toFixed(0)} onChange={(n) => update({ rateFloorPctOfTechnical: n / 100 })} suffix="% of technical" /></td><td><ActionSelect value={authority.rateFloorAction} onChange={(a) => update({ rateFloorAction: a })} /></td></tr>
+            <tr><td>Auto-bind if AAL rate is at or below</td><td><Num disabled={ro} value={+(authority.writeMaxAALRate * 100).toFixed(2)} step={0.1} onChange={(n) => update({ writeMaxAALRate: n / 100 })} suffix="% of TIV" /></td><td className="poc">else refer</td></tr>
+            <tr><td>Decline if AAL rate is above</td><td><Num disabled={ro} value={+(authority.declineMinAALRate * 100).toFixed(2)} step={0.1} onChange={(n) => update({ declineMinAALRate: n / 100 })} suffix="% of TIV" /></td><td className="poc">decline</td></tr>
+            <tr><td>Refer if data confidence below</td><td><Num disabled={ro} value={+(authority.minConfidence * 100).toFixed(0)} onChange={(n) => update({ minConfidence: n / 100 })} suffix="%" /></td><td className="poc">refer</td></tr>
+            <tr><td>Decline if data confidence below</td><td><Num disabled={ro} value={+(authority.declineMaxConfidence * 100).toFixed(0)} onChange={(n) => update({ declineMaxConfidence: n / 100 })} suffix="%" /></td><td className="poc">decline</td></tr>
+            <tr><td>Decline if 1-in-100 loss above</td><td><Num disabled={ro} value={+(authority.declineMax1in100Rate * 100).toFixed(0)} onChange={(n) => update({ declineMax1in100Rate: n / 100 })} suffix="% of TIV" /></td><td className="poc">decline</td></tr>
+            <tr><td>Charged rate must be at least</td><td><Num disabled={ro} value={+(authority.rateFloorPctOfTechnical * 100).toFixed(0)} onChange={(n) => update({ rateFloorPctOfTechnical: n / 100 })} suffix="% of technical" /></td><td><ActionSelect disabled={ro} value={authority.rateFloorAction} onChange={(a) => update({ rateFloorAction: a })} /></td></tr>
           </tbody>
         </table>
         <div className="poc" style={{ marginTop: 10 }}>Auto-bind window: at or below {pct(authority.writeMaxAALRate)} write · {pct(authority.writeMaxAALRate)}–{pct(authority.declineMinAALRate)} refer · above {pct(authority.declineMinAALRate)} decline.</div>
@@ -246,8 +275,8 @@ export function AuthorityPanel({
         </div>
         <table>
           <tbody>
-            <tr><td>Minimum wind deductible</td><td><Num value={authority.minWindDedPct} step={0.5} onChange={(n) => update({ minWindDedPct: n })} suffix="% of TIV" /></td></tr>
-            <tr><td>Minimum earthquake deductible</td><td><Num value={authority.minQuakeDedPct} step={0.5} onChange={(n) => update({ minQuakeDedPct: n })} suffix="% of TIV" /></td></tr>
+            <tr><td>Minimum wind deductible</td><td><Num disabled={ro} value={authority.minWindDedPct} step={0.5} onChange={(n) => update({ minWindDedPct: n })} suffix="% of TIV" /></td></tr>
+            <tr><td>Minimum earthquake deductible</td><td><Num disabled={ro} value={authority.minQuakeDedPct} step={0.5} onChange={(n) => update({ minQuakeDedPct: n })} suffix="% of TIV" /></td></tr>
             <tr><td>Flood sublimit</td><td><button className={`pill-btn ${authority.mandatoryFloodSublimit ? "on" : ""}`} disabled={ro} onClick={() => update({ mandatoryFloodSublimit: !authority.mandatoryFloodSublimit })}>{authority.mandatoryFloodSublimit ? "Mandatory" : "Optional"}</button></td></tr>
           </tbody>
         </table>
