@@ -1,7 +1,9 @@
 # Dependencies and build output
 node_modules/
 dist/
-public/
+# Only the assembled site at the repo root is build output — NOT the apps'
+# source public/ folders (which hold the logo, ESA lockup, fonts, video).
+/public/
 
 # Local env (never commit keys)
 .env

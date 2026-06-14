@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CERA® MGA Pricing Engine — Data Flow & Build Status</title>
+<style>
+  :root{--navy:#131F3C;--navy2:#020619;--pink:#FF66C4;--palepink:#FFF0F9;--grey:#5A6178;--line:#e4e7ee;
+    --live:#11804f;--livebg:#e6f7ef;--poc:#9a6b00;--pocbg:#fdf3dd;--build:#c2186b;--buildbg:#FFF0F9}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f5f6f8;color:var(--navy);font-family:"Aptos","Inter","Lato","Helvetica Neue",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .page{max-width:920px;margin:0 auto;padding:0 24px 40px}
+  header{background:var(--navy);color:#fff;border-bottom:3px solid var(--pink);margin-bottom:26px}
+  .hdr{max-width:920px;margin:0 auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:500;letter-spacing:.16em;font-size:17px}.logo b{color:var(--pink)}
+  h1{font-size:21px;font-weight:500;margin:0 0 4px}
+  .sub{color:var(--grey);font-size:13px;margin-bottom:18px}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+  .chip{font-size:11.5px;font-weight:500;padding:4px 12px;border-radius:20px;letter-spacing:.03em}
+  .chip.live{background:var(--livebg);color:var(--live);border:1px solid #bfe6d2}
+  .chip.poc{background:var(--pocbg);color:var(--poc);border:1px solid #ecd9a8}
+  .chip.build{background:var(--buildbg);color:var(--build);border:1px solid #f6c2e0}
+  .chip.note{background:#eceef3;color:var(--grey);border:1px solid var(--line)}
+
+  .stage{background:#fff;border:1px solid var(--line);border-left:6px solid var(--grey);border-radius:10px;
+    padding:14px 18px;display:flex;gap:14px;align-items:flex-start;position:relative}
+  .stage.live{border-left-color:var(--live)} .stage.poc{border-left-color:#d9a514} .stage.build{border-left-color:var(--pink)}
+  .num{background:var(--navy);color:#fff;border-radius:8px;min-width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;margin-top:2px}
+  .stage h3{margin:0;font-size:15px;font-weight:500;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .stage p{margin:4px 0 0;font-size:12.5px;color:var(--grey)}
+  .stage .extra{font-size:11.5px;color:var(--grey);margin-top:5px}
+  .extra b{color:var(--navy);font-weight:500}
+
+  .arrow{display:flex;justify-content:center;padding:4px 0}
+  .arrow::after{content:"";width:2px;height:18px;background:var(--navy);display:block;position:relative}
+  .arrow span{position:relative}
+  .arrow svg{display:block}
+
+  .branch{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0}
+  .branchlbl{text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:5px 0}
+  .branchlbl.yes{color:var(--live)} .branchlbl.no{color:var(--build)}
+  .mini{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;border-left:6px solid var(--pink)}
+  .mini h4{margin:0;font-size:13.5px;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .mini p{margin:4px 0 0;font-size:11.5px;color:var(--grey)}
+
+  .decision{background:var(--navy);color:#fff;border-radius:10px;padding:14px 18px;text-align:center}
+  .decision h3{margin:0;font-size:15px;font-weight:500}
+  .decision p{margin:4px 0 0;font-size:12px;color:#c3cadc}
+
+  footer{font-size:11px;color:var(--grey);border-top:1px solid var(--line);margin-top:28px;padding-top:12px;line-height:1.6}
+  @media print{body{background:#fff}.page{padding:0}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .stage,.chip,.mini,.decision{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header><div class="hdr">
+  <div class="logo"><b>BIRDS</b>EYEVIEW</div>
+  <div style="font-size:12px;color:#aeb6cc">CERA® · MGA Pricing Engine</div>
+</div></header>
+
+<div class="page">
+  <h1>How a risk flows through the system — and what's built</h1>
+  <div class="sub">One submission's journey from the underwriter's desk to a bound risk or a referral. June 2026.</div>
+
+  <div class="legend">
+    <span class="chip live">● BUILT &amp; LIVE</span>
+    <span class="chip poc">● PoC BUILT — research &amp; calibration needed</span>
+    <span class="chip build">● TO BUILD</span>
+    <span class="chip note">◌ data roadmap note</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="stage live">
+    <div class="num">1</div>
+    <div>
+      <h3>Location input <span class="chip live">USER</span></h3>
+      <p>The underwriter enters a <b>single location</b> (address + TIV + occupancy) or uploads a <b>schedule / bordereau from Excel</b>.</p>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 2 -->
+  <div class="stage live">
+    <div class="num">2</div>
+    <div>
+      <h3>AI Ingestion Tool <span class="chip live">BUILT &amp; LIVE</span></h3>
+      <p>Cleans, standardises and <b>geo-locates</b> every row — a messy 10,000-location schedule becomes structured, lat/long-tagged data in minutes.</p>
+      <div class="extra"><b>Owner:</b> built by Raghav · already in production.</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 3 -->
+  <div class="stage live">
+    <div class="num">3</div>
+    <div>
+      <h3>BirdsEyeView hazard model (CERA® API) <span class="chip live">BUILT &amp; LIVE</span> <span class="chip note">Hail &amp; SCS ≈ year-end 2026</span></h3>
+      <p>For each location, returns the <b>full return-period distribution per peril</b> — not a score, the whole curve.</p>
+      <div class="extra"><b>Perils live:</b> Flood (FATHOM), Tropical Cyclone, Earthquake, US Tornado, Wildfire · <b>Endpoints:</b> lite (fast screen) · daily (full curve) · batch (whole books).</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 4 -->
+  <div class="stage poc">
+    <div class="num">4</div>
+    <div>
+      <h3>Vulnerability model <span class="chip poc">PoC — RESEARCH &amp; CALIBRATION</span></h3>
+      <p>Open-source, peer-reviewed damage curves convert hazard intensity into a <b>damage ratio</b> for the building — tuned by construction, occupancy, year built and roof.</p>
+      <div class="extra"><b>Sources:</b> JRC flood · Emanuel/Eberenz cyclone · GEM earthquake · wildfire conditional-damage. <b>Needs:</b> science-team calibration of the unit conversions &amp; curves.</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 5 -->
+  <div class="stage poc">
+    <div class="num">5</div>
+    <div>
+      <h3>AAL engine <span class="chip poc">PoC — TO PRODUCTISE</span></h3>
+      <p>Hazard curve × damage curve × TIV → <b>per-peril AAL, a total NatCat AAL</b>, and a confidence score that reflects how much data the underwriter supplied.</p>
+      <div class="extra"><b>Output mirrors the policy:</b> Section 1 (Material Damage) + Section 2 (Business Interruption) = total. Methodology paper + validated calculator already exist.</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 6 -->
+  <div class="stage build">
+    <div class="num">6</div>
+    <div>
+      <h3>Underwriting layer — authority &amp; triage <span class="chip build">TO BUILD</span></h3>
+      <p>The risk is checked against <b>underwriting rules set by a super-user</b> — the manager, or the capacity provider under a binding authority (e.g. Hudson for a US coverholder).</p>
+      <div class="extra"><b>Rules:</b> max TIV · permitted construction/occupancy · excluded zones · per-peril hazard frequency limits · AAL ceilings · minimum terms · rate floors. Every breach names the rule that fired.</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 7 -->
+  <div class="stage build">
+    <div class="num">7</div>
+    <div>
+      <h3>Portfolio checks — accumulation <span class="chip build">TO BUILD</span></h3>
+      <p>The new risk is tested against the <b>in-force book</b>: zone aggregates, PML / tail capital, and whether this risk pushes a peak zone over the limit.</p>
+      <div class="extra"><b>Outputs:</b> Cresta-zone aggregation · 1-in-100/250 PML · 1-in-200 TVaR · marginal impact of the new risk. True event-based PML needs catalogue footprints from data science.</div>
+    </div>
+  </div>
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 8 decision -->
+  <div class="decision">
+    <h3>8 · Decision — inside or outside authority?</h3>
+    <p>Everything above resolves to one call, with the reasons listed.</p>
+  </div>
+
+  <div class="branch" style="margin-top:10px">
+    <div>
+      <div class="branchlbl yes">▼ Inside authority — bind</div>
+      <div class="mini">
+        <h4>Auto-underwrite with guided terms <span class="chip build">TO BUILD</span></h4>
+        <p>The system proposes deductibles, sublimits and layers within the rules, prices a capital-aware technical premium, and assembles the wording schedule.</p>
+      </div>
+    </div>
+    <div>
+      <div class="branchlbl no">▼ Outside authority — refer</div>
+      <div class="mini">
+        <h4>One-click referral report <span class="chip build">TO BUILD</span></h4>
+        <p>A branded placement document — risk summary, the rule that fired, hazard &amp; AAL detail, proposed terms, price — goes straight to the capacity provider. No hand-written email.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="14" height="22"><line x1="7" y1="0" x2="7" y2="14" stroke="#131F3C" stroke-width="2"/><polygon points="2,13 12,13 7,21" fill="#131F3C"/></svg></div>
+
+  <!-- 9 -->
+  <div class="stage build">
+    <div class="num">9</div>
+    <div>
+      <h3>Export for independent modelling <span class="chip build">TO BUILD</span></h3>
+      <p>Cleaned, bound risks export to <b>RMS EDM</b> or <b>Verisk CEDE</b> format — so the book can be run through the big cat models independently, with zero re-keying.</p>
+      <div class="extra"><b>Why it matters:</b> capacity providers and reinsurers ask for exactly these formats — this turns a data-cleaning chore into a one-click handoff.</div>
+    </div>
+  </div>
+
+  <footer>
+    BirdsEyeView · CERA® MGA Pricing Engine — data flow &amp; build status, June 2026. Colour code: green = built &amp; live · amber = PoC built, research/calibration needed · pink = to build. Stages 4–5 have working proof-of-concepts (validated maths, methodology paper); stages 6–9 are specified in the build plan. CERA® is a registered trademark of BirdsEyeView.
+  </footer>
+</div>
+</body>
+</html>
