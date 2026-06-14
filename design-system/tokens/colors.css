@@ -1,0 +1,84 @@
+/* ============================================================
+   BirdsEyeView — Colour tokens
+   Source: BirdsEyeView Style Guide §2 + Style-Guide.pptx slide 3
+   "A navy canvas. Pink for emphasis."
+   ============================================================ */
+
+:root {
+  /* ---- Core brand palette (in-use) ---- */
+  --bev-navy:        #000615; /* primary dark / body text on light. NOT pure black */
+  --bev-mid:         #164F86; /* gradient light stop */
+  --bev-hot-pink:    #FF6CAA; /* accent / emphasis only — never body text */
+  --bev-white:       #FFFFFF; /* primary text on dark */
+  --bev-mist-grey:   #C6C8CD; /* secondary text / hairlines / captions */
+  --bev-sky-blue:    #0BA7FC; /* data viz / map overlays */
+  --bev-ocean-blue:  #3484C9; /* data viz (deep) */
+
+  /* ---- Hot-pink ramp (emphasis + primary actions) ----
+     Pink is THE accent everywhere — marketing and product. */
+  --pink-bright: #FF89BC; /* hover */
+  --pink-deep:   #E24E8C; /* pressed / active */
+
+  /* ---- Extended theme palette — CHART USE ONLY ---- */
+  --chart-blue:   #0365C0;
+  --chart-green:  #00882B;
+  --chart-gold:   #DCBD23;
+  --chart-orange: #DE6A10;
+  --chart-red:    #C82506;
+  --chart-purple: #773F9B;
+  --chart-ocean:  #3484C9;
+
+  /* ---- Neutrals / greys ---- */
+  --theme-slate:  #5C6677; /* theme dark 1 */
+  --theme-dark-2: #53585F; /* theme dark 2 */
+  --panel-grey:   #DCDEE0; /* light panel */
+  --pale-grey:    #F4F5F7; /* banded table rows */
+
+  /* ---- Navy ramp (panels, surfaces, borders on dark) ---- */
+  --navy-900: #000615; /* canvas / gradient dark stop */
+  --navy-800: #04102a; /* raised panel on navy */
+  --navy-700: #09233a; /* card / right panel */
+  --navy-600: #0e2c4a; /* input / hover surface */
+  --navy-500: #164F86; /* gradient light stop / mid */
+
+  /* ---- Gradient (the BEV canvas) ---- */
+  --bev-gradient: linear-gradient(180deg, #000615 0%, #08233f 55%, #164F86 100%); /* @kind color */
+
+  /* ============================================================
+     SEMANTIC ALIASES
+     ============================================================ */
+
+  /* Marketing / dark context (default) */
+  --surface-canvas:    var(--navy-900);
+  --surface-panel:     var(--navy-700);
+  --surface-raised:    var(--navy-800);
+  --surface-input:     var(--navy-600);
+  --text-primary:      var(--bev-white);
+  --text-secondary:    var(--bev-mist-grey);
+  --text-accent:       var(--bev-hot-pink);
+  --hairline:          rgba(255, 255, 255, 0.14);
+  --hairline-strong:   rgba(255, 255, 255, 0.24);
+
+  /* Light context (white slides, documents, light UI) */
+  --surface-light:     var(--bev-white);
+  --surface-light-alt: var(--pale-grey);
+  --text-on-light:     var(--bev-navy);
+  --text-on-light-soft:#3a414e;
+  --hairline-on-light: rgba(0, 6, 21, 0.12);
+
+  /* Interactive — actions use the hot-pink accent (navy text on pink) */
+  --action:            var(--bev-hot-pink);
+  --action-hover:      var(--pink-bright);
+  --action-active:     var(--pink-deep);
+  --action-text:       var(--bev-navy);
+
+  /* Emphasis — marketing (hot-pink) */
+  --emphasis:          var(--bev-hot-pink);
+  --emphasis-rule:     var(--bev-hot-pink);
+
+  /* Status (maps to extended palette) */
+  --status-success: var(--chart-green);
+  --status-warning: var(--chart-gold);
+  --status-danger:  var(--chart-red);
+  --status-info:    var(--bev-sky-blue);
+}

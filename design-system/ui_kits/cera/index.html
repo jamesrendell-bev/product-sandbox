@@ -1,0 +1,38 @@
+<!-- @dsCard group="CERA Platform" viewport="1280x720" name="CERA® — Hazard Analysis" subtitle="Interactive recreation: login, location search, return-period analysis, hazard layers" -->
+<!-- @startingPoint section="BirdsEyeView" subtitle="CERA® platform — interactive hazard-analysis screen" viewport="1280x720" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CERA® — Hazard Analysis</title>
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" />
+<link rel="stylesheet" href="./cera.css" />
+<style>
+  html, body, #root { height: 100%; margin: 0; }
+  body { background: #04102a; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script>
+  (function () {
+    var ns = window.BirdsEyeViewDesignSystem_e42a1e || {};
+    var CeraApp = ns.CeraApp;
+    var root = ReactDOM.createRoot(document.getElementById("root"));
+    if (CeraApp) {
+      root.render(React.createElement(CeraApp));
+    } else {
+      document.getElementById("root").innerHTML =
+        '<div style="color:#fff;font-family:sans-serif;padding:40px">CeraApp not found on namespace. Available: ' +
+        Object.keys(ns).join(", ") + '</div>';
+    }
+  })();
+</script>
+</body>
+</html>

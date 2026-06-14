@@ -1,0 +1,30 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Logo & ESA lockup" subtitle="Bird mark + serif wordmark · partnership lockup · never recolour or stretch" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);display:flex}
+  .pane{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;box-sizing:border-box;min-height:200px}
+  .dark{background:var(--bev-gradient,linear-gradient(180deg,#000615,#164F86))}
+  .light{background:#fff}
+  img{height:64px;width:auto;display:block}
+  .cap{font-size:11px;letter-spacing:.04em}
+  .dark .cap{color:#C6C8CD}
+  .light .cap{color:#5C6677}
+</style>
+</head>
+<body>
+  <div class="pane dark">
+    <img src="../assets/logos/bev-logo-dark.jpg" alt="BirdsEyeView logo (dark)" />
+    <div class="cap">Primary — on navy / gradient</div>
+  </div>
+  <div class="pane light">
+    <img src="../assets/logos/bev-esa-lockup-light.jpg" alt="BEV + ESA lockup (light)" style="height:78px" />
+    <div class="cap">Partnership lockup — on white</div>
+  </div>
+</body>
+</html>

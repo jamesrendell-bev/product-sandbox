@@ -1,0 +1,805 @@
+/* ============================================================
+   BirdsEyeView design system — applied to the Property NatCat
+   Pricing app. "A navy canvas. Pink for emphasis." Hybrid:
+   dark navy chrome + hero; white content surfaces.
+   Imported AFTER theme.css so it re-skins the existing classes.
+   ============================================================ */
+
+:root {
+  /* Core BEV palette (overrides theme.css) */
+  --navy: #000615;
+  --navy2: #000615;
+  --navy-700: #09233a;
+  --navy-600: #0e2c4a;
+  --mid: #164f86;
+  --pink: #ff6caa;
+  --pink-hover: #ff89bc;
+  --pink-press: #e24e8c;
+  --palepink: #ffeaf3;
+  --mist: #c6c8cd;
+  --grey: #8ea0b8; /* secondary / muted text on dark */
+  --line: rgba(255, 255, 255, 0.08); /* hairline on dark */
+  --line-dark: rgba(255, 255, 255, 0.14);
+  --bg: #04102a; /* canvas base */
+  --white: #fff;
+  --bev-gradient: linear-gradient(180deg, #000615 0%, #08233f 55%, #164f86 100%);
+
+  /* Dark design-system surfaces (matches the sandbox shell + Contingency) */
+  --canvas: radial-gradient(120% 90% at 50% -10%, #0a2547 0%, #04102a 60%);
+  --card-grad: linear-gradient(180deg, rgba(11, 29, 57, 0.85), rgba(6, 18, 40, 0.85));
+  --text: #e7ecf3; /* primary body text on dark */
+  --text-faint: #5e708a;
+  --input-bg: rgba(2, 10, 24, 0.7);
+
+  /* RAG status chips — tint + readable foreground, sit on dark cards */
+  --rag-write: #38c0a4;
+  --rag-write-bg: rgba(47, 164, 141, 0.16);
+  --rag-refer: #e6b34d;
+  --rag-refer-bg: rgba(220, 189, 35, 0.14);
+  --rag-decline: #ff7a63;
+  --rag-decline-bg: rgba(200, 37, 6, 0.18);
+}
+
+body {
+  font-family: "Mulish", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  background-image: var(--canvas);
+  background-attachment: fixed;
+  color: var(--text);
+  font-weight: 400;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-bright, #fff);
+}
+
+/* ── Signature devices ─────────────────────────────────────── */
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pink);
+  margin: 0 0 8px;
+}
+.h-rule::after {
+  content: "";
+  display: block;
+  width: 34%;
+  max-width: 220px;
+  height: 3px;
+  background: var(--pink);
+  margin-top: 14px;
+}
+.page-intro {
+  color: var(--grey);
+  font-size: 15px;
+  max-width: 760px;
+  margin: 10px 0 0;
+  line-height: 1.55;
+}
+
+/* ── Top nav (always dark) ─────────────────────────────────── */
+.bevnav {
+  background: var(--navy);
+  border-bottom: 1px solid var(--line-dark);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.bevnav .inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.bevnav .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.bevnav .brand img {
+  height: 34px;
+  display: block;
+}
+.bevnav .brand .pname {
+  padding-left: 12px;
+  border-left: 1px solid var(--line-dark);
+}
+.bevnav .brand .pname {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.bevnav .brand .pname span {
+  color: var(--mist);
+  font-weight: 400;
+}
+.bevnav .links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.bevnav .nav-link {
+  appearance: none;
+  background: none;
+  border: none;
+  color: var(--mist);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.bevnav .nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.bevnav .nav-link.active {
+  color: #fff;
+  background: rgba(255, 108, 170, 0.14);
+  box-shadow: inset 0 -2px 0 var(--pink);
+}
+.bevnav .hamburger {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+}
+.bevnav .badge-env {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mist);
+  border: 1px solid var(--line-dark);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ── Stepper (numbered journey) ────────────────────────────── */
+.stepperwrap {
+  background: var(--navy);
+  border-bottom: 1px solid var(--line-dark);
+}
+.stepper {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.stepper .step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line-dark);
+  cursor: pointer;
+  text-align: left;
+  color: var(--mist);
+  font: inherit;
+  min-width: 0;
+}
+.stepper .step:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.stepper .step .num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid var(--line-dark);
+  color: var(--mist);
+}
+.stepper .step .txt {
+  min-width: 0;
+}
+.stepper .step .lbl {
+  color: #fff;
+  font-weight: 600;
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stepper .step .sub {
+  font-size: 11.5px;
+  color: var(--mist);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stepper .step.active {
+  background: rgba(255, 108, 170, 0.12);
+  border-color: var(--pink);
+}
+.stepper .step.active .num {
+  background: var(--pink);
+  color: var(--navy);
+  border-color: var(--pink);
+}
+.stepper .step.done .num {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+/* ── Breadcrumb ────────────────────────────────────────────── */
+.crumbs {
+  font-size: 12.5px;
+  color: var(--grey);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 18px 0 14px;
+}
+.crumbs a, .crumbs button {
+  color: var(--grey);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.crumbs a:hover, .crumbs button:hover { color: var(--pink); }
+.crumbs .here { color: var(--navy); font-weight: 600; }
+
+/* ── White boxed cards (the content surface) ───────────────── */
+.bevcard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 6, 21, 0.05);
+  padding: 22px 24px;
+  margin-bottom: 18px;
+}
+.bevcard > .card-head {
+  margin-bottom: 16px;
+}
+.bevcard .card-head .eyebrow {
+  margin-bottom: 6px;
+}
+.bevcard .card-head h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.bevcard .card-head .desc {
+  color: var(--grey);
+  font-size: 13px;
+  margin-top: 5px;
+  max-width: 760px;
+}
+
+/* ── Buttons (pill) ────────────────────────────────────────── */
+.btn {
+  appearance: none;
+  font: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 140ms, box-shadow 140ms, transform 140ms;
+}
+.btn:hover { box-shadow: 0 3px 12px rgba(0, 6, 21, 0.1); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+.btn-primary {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--navy);
+}
+.btn-primary:hover { background: var(--pink-hover); }
+.btn-primary:active { background: var(--pink-press); }
+.btn-ghost { background: transparent; }
+.btn-sm { padding: 7px 14px; font-size: 13px; }
+
+/* ── Brand tables (navy header) ────────────────────────────── */
+.bevcard table thead th {
+  background: var(--navy);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 9px 10px;
+}
+.bevcard table thead th:first-child { border-top-left-radius: 8px; }
+.bevcard table thead th:last-child { border-top-right-radius: 8px; }
+.bevcard table tbody tr:nth-child(even) td { background: var(--pale-grey, #f4f5f7); }
+.bevcard table td { border-bottom: 1px solid var(--line); padding: 9px 10px; vertical-align: middle; }
+
+/* ── Footer (dark + ESA lockup) ────────────────────────────── */
+.bevfooter {
+  background: var(--navy);
+  color: var(--mist);
+  border-top: 1px solid var(--line-dark);
+  margin-top: 28px;
+}
+.bevfooter .inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 26px 24px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.bevfooter .inner p { margin: 0; font-size: 11.5px; line-height: 1.6; max-width: 740px; }
+.bevfooter img { height: 34px; opacity: 0.95; }
+
+/* ── Hero (dark gradient — landing only) ───────────────────── */
+.bevhero {
+  background: var(--bev-gradient);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.bevhero::after {
+  /* subtle triangular-mesh hint, one corner */
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 460px;
+  height: 460px;
+  background:
+    repeating-linear-gradient(60deg, rgba(255, 108, 170, 0.16) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(-60deg, rgba(255, 108, 170, 0.16) 0 1px, transparent 1px 34px);
+  -webkit-mask-image: radial-gradient(circle at top right, #000 0%, transparent 62%);
+  mask-image: radial-gradient(circle at top right, #000 0%, transparent 62%);
+  pointer-events: none;
+}
+.bevhero .inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px 64px;
+  position: relative;
+}
+.bevhero .lockup {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  height: 40px;
+}
+.bevhero h1 {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.1;
+  max-width: 760px;
+  margin: 0;
+}
+.bevhero .h-rule::after { background: var(--pink); }
+.bevhero p { color: var(--mist); max-width: 680px; font-size: 16px; margin: 18px 0 0; }
+
+/* ── Light content shell ───────────────────────────────────── */
+.contentwrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 8px 24px 8px;
+}
+.pagehead { margin: 6px 0 20px; }
+.pagehead h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0;
+}
+
+/* ── Next/Back footer of a workflow page ───────────────────── */
+.stepnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 28px;
+  flex-wrap: wrap;
+}
+.stepnav .spacer { flex: 1; }
+
+/* ── Re-skin a few existing classes for legibility ─────────── */
+.rel.Excellent { background: var(--rag-write-bg); color: var(--rag-write); }
+.rel.High { background: #e8f1ff; color: #1f5fae; }
+.rel.Medium { background: var(--rag-refer-bg); color: var(--rag-refer); }
+.rel.Low { background: var(--rag-decline-bg); color: var(--rag-decline); }
+
+/* ── Landing step cards ────────────────────────────────────── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.steplink {
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  transition: box-shadow 140ms, transform 140ms;
+}
+.steplink:hover { box-shadow: 0 8px 20px rgba(0, 6, 21, 0.12); transform: translateY(-2px); }
+.steplink .snum { font-size: 26px; font-weight: 300; color: var(--pink); line-height: 1; }
+.steplink .slbl { font-weight: 600; font-size: 15px; color: var(--navy); margin-top: 8px; }
+.steplink .ssub { font-size: 12.5px; color: var(--grey); }
+
+/* ── Sandbox product directory ─────────────────────────────── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.product-card {
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: box-shadow 150ms, transform 150ms;
+  font: inherit;
+}
+.product-card:hover:not(.is-disabled) { box-shadow: 0 10px 26px rgba(0, 6, 21, 0.13); transform: translateY(-2px); }
+.product-card.is-disabled { cursor: default; opacity: 0.72; }
+.product-card .pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.product-card .pc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: var(--navy);
+  color: #fff;
+}
+.product-card .pc-name { font-size: 17px; font-weight: 600; color: var(--navy); }
+.product-card .pc-tag { font-size: 13px; color: var(--grey); margin-top: 6px; line-height: 1.5; flex: 1; }
+.product-card .pc-cta { margin-top: 16px; }
+.product-card .pc-open { display: inline-flex; align-items: center; gap: 6px; color: var(--pink); font-weight: 600; font-size: 14px; }
+.product-card .pc-soon { font-size: 12.5px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Sandbox identity in the nav */
+.bevnav .sandbox-badge {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--navy);
+  background: var(--pink);
+  border-radius: 20px;
+  padding: 3px 11px;
+  font-weight: 600;
+}
+.bevnav .nav-link.back { color: var(--mist); }
+.bevnav .nav-link.back:hover { color: #fff; }
+
+@media (max-width: 760px) {
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Re-skin existing .panel surfaces to the white-card system ─ */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 6, 21, 0.05);
+  padding: 22px 24px;
+}
+.panel > h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.sechead {
+  color: var(--pink);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 600;
+}
+.controls {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 6, 21, 0.05);
+}
+.controls label,
+.panel label,
+.ctl label { color: var(--grey); }
+/* navy table headers everywhere in content */
+.panel table thead th,
+.controls table thead th {
+  background: var(--navy);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 9px 10px;
+}
+.panel table thead th:first-child { border-top-left-radius: 8px; }
+.panel table thead th:last-child { border-top-right-radius: 8px; }
+.panel table tbody tr:nth-child(even) td { background: #f7f8fa; }
+/* pill buttons (existing) → brand pill */
+.pill-btn {
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.pill-btn.on {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--navy);
+}
+.bignum { color: var(--navy); font-weight: 600; }
+.disclosure > summary h2 { color: var(--navy); }
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .bevnav .links { display: none; }
+  .bevnav .links.open {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: var(--navy);
+    border-bottom: 1px solid var(--line-dark);
+    padding: 10px 16px 16px;
+  }
+  .bevnav .hamburger { display: inline-flex; }
+  .stepper { flex-wrap: wrap; }
+  .stepper .step { flex: 1 1 calc(50% - 8px); }
+}
+@media (max-width: 900px) {
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .stepper .step { flex: 1 1 100%; }
+  .bevhero h1 { font-size: 30px; }
+  .pagehead h1 { font-size: 24px; }
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   DARK SURFACES — unify with the sandbox shell + Contingency.
+   Appended last so it re-skins the white content surfaces and
+   navy-on-light text to the dark navy design system. The deep
+   navy (--navy) is kept for nav, footer, table headers and
+   text-on-pink, which are already dark.
+   ============================================================ */
+
+/* Content surfaces: white → dark translucent navy card, soft glow depth */
+.bevcard,
+.panel,
+.controls,
+.card {
+  background: var(--card-grad);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.6);
+  color: var(--text);
+}
+.card.cera {
+  border-color: rgba(255, 108, 170, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 108, 170, 0.5),
+    0 18px 44px -18px rgba(255, 108, 170, 0.18),
+    0 18px 44px -20px rgba(0, 0, 0, 0.5);
+}
+
+/* Headings / labels that referenced the deep navy as a text colour */
+.bevcard .card-head h3,
+.panel > h2,
+.pagehead h1,
+.pc-name,
+.product-card .pc-name,
+.steplink .slbl,
+.bignum,
+.crumbs .here,
+.disclosure > summary h2 {
+  color: var(--text-bright, #fff);
+}
+.bevcard .card-head .desc,
+.page-intro,
+.product-card .pc-tag,
+.steplink .ssub,
+.note,
+.poc,
+.bignum .unit {
+  color: var(--grey);
+}
+.note b,
+.crumbs a:hover,
+.crumbs button:hover {
+  color: var(--text-bright, #fff);
+}
+
+/* Inputs: light → dark field */
+select,
+input[type="number"],
+input[type="text"],
+td input,
+.miniinput {
+  background: var(--input-bg);
+  border: 1px solid var(--line-dark);
+  color: var(--text);
+}
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--pink);
+}
+input::placeholder {
+  color: var(--text-faint);
+}
+
+/* Default (non-primary) pill buttons sit on the dark surface */
+.btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-dark);
+  color: var(--text);
+}
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+.btn-primary {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--navy);
+}
+.btn-primary:hover {
+  background: var(--pink-hover);
+  box-shadow: 0 8px 22px rgba(255, 108, 170, 0.32);
+}
+.btn-ghost {
+  background: transparent;
+}
+.pill-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-dark);
+  color: var(--text);
+}
+.pill-btn.on {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--navy);
+}
+
+/* Notes / readouts / chips on dark */
+.note {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--line-dark);
+}
+.readout {
+  background: rgba(255, 108, 170, 0.1);
+  border: 1px solid rgba(255, 108, 170, 0.28);
+  color: var(--text);
+}
+.chip.score {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+.chip.rp {
+  background: rgba(255, 108, 170, 0.12);
+  color: var(--text);
+  border: 1px solid rgba(255, 108, 170, 0.28);
+}
+.conf .bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Tables on dark cards */
+.bevcard table tbody tr:nth-child(even) td,
+.panel table tbody tr:nth-child(even) td,
+.controls table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+tfoot td {
+  border-top: 2px solid rgba(255, 108, 170, 0.45);
+}
+.map-popup b {
+  color: var(--navy);
+}
+
+/* Product / step cards: dark icon chip → pink-tinted, pink hover bloom */
+.product-card .pc-icon {
+  background: rgba(255, 108, 170, 0.16);
+  color: var(--pink);
+}
+.product-card,
+.steplink {
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.product-card:hover:not(.is-disabled),
+.steplink:hover {
+  border-color: rgba(255, 108, 170, 0.5);
+  box-shadow: 0 20px 44px -16px rgba(255, 108, 170, 0.26),
+    0 18px 44px -20px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Primary pill carries a soft pink glow */
+.btn-primary {
+  box-shadow: 0 8px 22px -8px rgba(255, 108, 170, 0.5);
+}
+.btn-primary:hover {
+  box-shadow: 0 10px 28px -6px rgba(255, 108, 170, 0.6);
+}
+
+/* SVG charts: dim the light gridlines, lift the threshold line */
+.grid { stroke: rgba(255, 255, 255, 0.07); }
+.axis { stroke: rgba(255, 255, 255, 0.2); }
+.thr { stroke: rgba(255, 255, 255, 0.45); }
+
+/* ============================================================
+   EMBEDDED IN THE SANDBOX SHELL ([data-embed]) — drop our own
+   brand chrome and footer; the shell's left rail is the chrome.
+   The in-app section nav stays as a clean top strip.
+   ============================================================ */
+[data-embed] .bevnav .brand,
+[data-embed] .bevnav .nav-link.back,
+[data-embed] .bevnav .badge-env,
+[data-embed] .bevnav .sandbox-badge,
+[data-embed] .bevfooter {
+  display: none;
+}
+[data-embed] .bevnav .inner { gap: 0; }
+[data-embed] .bevnav .links { margin-left: 0; }
+
+/* ============================================================
+   Larger, easier-to-read number inputs. Boxes wide enough to
+   show the full (comma-grouped) value; comfortable type size.
+   ============================================================ */
+.controls .ctl { min-width: 200px; }
+.controls .ctl input,
+.controls .ctl select { width: 100%; }
+.controls .ctl input,
+.controls .ctl select,
+input[type="number"],
+input[type="text"] {
+  font-size: 15px;
+  padding: 11px 13px;
+}
+.ctl input { font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+/* Layer-tower money inputs sit in tight cells; keep them legible too */
+.miniinput, td input { font-size: 13.5px; padding: 7px 9px; min-width: 92px; font-variant-numeric: tabular-nums; }

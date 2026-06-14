@@ -1,0 +1,48 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Triangular-mesh motif" subtitle="Subtle pink tessellation fading from a corner · for LinkedIn covers & section heads · decorative only" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;700&display=swap" />
+<style>
+  html, body { margin: 0; }
+  .demo {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: var(--bev-gradient, linear-gradient(180deg, #000615, #164F86));
+    font-family: var(--font-brand, "Mulish", sans-serif);
+    color: #fff;
+  }
+  .mesh {
+    position: absolute; inset: 0; pointer-events: none;
+    --c: rgba(255,108,170,0.18); --g: 34px;
+    background-image:
+      repeating-linear-gradient(90deg,  transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g)),
+      repeating-linear-gradient(30deg,  transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g)),
+      repeating-linear-gradient(150deg, transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g));
+    -webkit-mask-image: radial-gradient(130% 130% at 100% 0%, #000 0%, rgba(0,0,0,.5) 30%, transparent 58%);
+            mask-image: radial-gradient(130% 130% at 100% 0%, #000 0%, rgba(0,0,0,.5) 30%, transparent 58%);
+  }
+  .tris { position: absolute; top: 26px; right: 26px; display: flex; gap: 9px; }
+  .tris i { width:0; height:0; border-top: 11px solid transparent; border-bottom: 11px solid transparent; border-left: 17px solid #FF6CAA; }
+  .tris i:nth-child(2){opacity:.55} .tris i:nth-child(3){opacity:.28}
+  .lab { position: absolute; left: 30px; top: 70px; }
+  .lab .e { font-size: 12px; letter-spacing:.2em; text-transform:uppercase; color:#FF6CAA; font-weight:700; }
+  .lab .h { font-size: 30px; font-weight: 300; margin-top: 10px; }
+  .lab .r { height: 4px; width: 70px; background:#FF6CAA; margin-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="demo">
+    <div class="mesh"></div>
+    <div class="tris"><i></i><i></i><i></i></div>
+    <div class="lab">
+      <div class="e">The motif</div>
+      <div class="h">Geometry, quietly.</div>
+      <div class="r"></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "cera-ai-converter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CERA® AI — EDM & CEDE Converter. Upload a broker schedule, classify each location with Claude, and export RMS EDM + Verisk CEDE files.",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'static site — no build step'",
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.36.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

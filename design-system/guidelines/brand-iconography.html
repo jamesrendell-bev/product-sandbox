@@ -1,0 +1,33 @@
+<!-- @dsCard group="Brand" viewport="700x190" name="Iconography — Lucide line icons" subtitle="Single-weight line · white on dark, navy on light · stroke inherits colour" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);background:var(--navy-800,#04102a);padding:24px 26px;color:#fff}
+  .grid{display:flex;gap:24px;flex-wrap:wrap}
+  .ic{display:flex;flex-direction:column;align-items:center;gap:8px;width:74px}
+  .ic svg{width:28px;height:28px;stroke-width:1.75}
+  .ic .n{font-size:10.5px;color:#C6C8CD}
+  .pink svg{color:#FF6CAA}
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="ic"><i data-lucide="layout-dashboard"></i><div class="n">Dashboard</div></div>
+    <div class="ic"><i data-lucide="bar-chart-3"></i><div class="n">Analysis</div></div>
+    <div class="ic"><i data-lucide="layers"></i><div class="n">Layers</div></div>
+    <div class="ic"><i data-lucide="map-pin"></i><div class="n">Location</div></div>
+    <div class="ic"><i data-lucide="waves"></i><div class="n">Flood</div></div>
+    <div class="ic pink"><i data-lucide="flame"></i><div class="n">Wildfire</div></div>
+    <div class="ic"><i data-lucide="wind"></i><div class="n">Cyclone</div></div>
+    <div class="ic"><i data-lucide="activity"></i><div class="n">Quake</div></div>
+    <div class="ic"><i data-lucide="folder-open"></i><div class="n">Exposure</div></div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>window.lucide && lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Dependencies and build output
+node_modules/
+dist/
+public/
+
+# Local env (never commit keys)
+.env
+.env.*
+!.env.example
+*.local
+
+# OS / editor
+.DS_Store
+.netlify/

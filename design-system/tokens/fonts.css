@@ -1,0 +1,37 @@
+/* ============================================================
+   BirdsEyeView — Webfont declarations
+   Brand face: AVENIR NEXT (licensed; ships with macOS, not web-embeddable).
+   Substitute shipped here: MULISH (Google Fonts) — a geometric-humanist
+   sans with matching ultra-light / regular / semibold tiers.
+   *** FLAG: Mulish is a substitute. Supply Avenir Next web licences to swap. ***
+   Map: Avenir Next Ultra Light -> 300, Regular -> 400, Demi Bold -> 600.
+   ============================================================ */
+
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 300; /* ~ Avenir Next Ultra Light */
+  font-display: swap;
+  src: url("../assets/fonts/mulish-light.woff") format("woff");
+}
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400; /* ~ Avenir Next Regular */
+  font-display: swap;
+  src: url("../assets/fonts/mulish-regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600; /* ~ Avenir Next Demi Bold */
+  font-display: swap;
+  src: url("../assets/fonts/mulish-semibold.woff") format("woff");
+}
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/mulish-bold.woff") format("woff");
+}

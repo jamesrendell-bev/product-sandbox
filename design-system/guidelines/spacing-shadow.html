@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Glow & shadow" subtitle="White glow on dark panels · soft navy shadows on light" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);background:linear-gradient(120deg,#04102a 0 50%,#eef0f3 50% 100%);padding:26px;color:#fff;display:flex;gap:24px}
+  .half{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .panel{width:180px;height:74px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+  .dark{background:#09233a;color:#fff;box-shadow:var(--glow-card,0 0 0 1px rgba(255,255,255,.10),0 18px 50px -20px rgba(0,0,0,.55),0 0 60px -10px rgba(255,255,255,.06))}
+  .light{background:#fff;color:#000615;box-shadow:var(--shadow-lg,0 20px 48px -16px rgba(0,6,21,.20))}
+  .lbl{font-size:11px;color:#C6C8CD}
+  .lbl.d{color:#5C6677}
+</style>
+</head>
+<body>
+  <div class="half"><div class="panel dark">Card on gradient</div><div class="lbl">--glow-card · white glow + hairline</div></div>
+  <div class="half"><div class="panel light">Card on light</div><div class="lbl d">--shadow-lg · soft navy shadow</div></div>
+</body>
+</html>

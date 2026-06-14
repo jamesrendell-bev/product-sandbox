@@ -1,0 +1,30 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["shared/**"]
+
+# Pro plan only: bump synchronous function timeout to the 26s max so the
+# CERA® AI classifier has headroom for "Re-classify all" on big submissions.
+# (Free tier ignores this and stays at 10s — which is too tight for this app.)
+[functions.classify]
+  timeout = 26
+
+[functions."export-edm"]
+  timeout = 26
+
+[functions."export-cede"]
+  timeout = 26
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

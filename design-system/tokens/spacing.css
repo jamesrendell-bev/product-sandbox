@@ -1,0 +1,53 @@
+/* ============================================================
+   BirdsEyeView — Spacing, radii & layout tokens
+   Source: Style Guide §5.6 (the box-spacing system).
+   Slide values are in INCHES (16:9, 1920×1080 = 13.3×7.5").
+   A px scale is provided for screen/UI; the inch values are kept
+   verbatim for deck/document authoring.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (px) — 4px base ---- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  32px;
+  --space-8:  40px;
+  --space-9:  48px;
+  --space-10: 64px;
+  --space-12: 96px;
+
+  /* ---- Slide box-spacing system (inches — single source of truth) ---- */
+  --slide-margin:        0.50in; /* outer page margin L/R */
+  --slide-margin-top:    0.30in; /* eyebrow */
+  --slide-margin-bottom: 0.45in; /* footer clearance */
+  --slide-gutter:        0.30in; /* @kind spacing */ /* horizontal gap between cards */
+  --slide-card-padding:  0.35in; /* card internal padding, all sides */
+  --slide-title-body:    0.55in; /* @kind spacing */ /* card title -> body gap */
+  --slide-rule-content:  0.65in; /* @kind spacing */ /* pink rule -> content below */
+  --slide-rule-gap:      0.30in; /* headline bottom -> pink rule */
+  --slide-min-gap:       0.20in; /* min gap between any two elements */
+
+  /* ---- Corner radii ----
+     Marketing/slides: rectangular, sharp (radius 0–2px).
+     Product UI: rounded inputs/cards, pill buttons. */
+  --radius-none: 0;
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-hairline: 1px;  /* 1px navy hairline in tables; white hairline on dark */
+  --border-thick:    2px;
+
+  /* ---- The hot-pink headline rule ---- */
+  --rule-thickness: 3px;
+  --rule-width:     36%; /* 30–40% of headline width */
+}

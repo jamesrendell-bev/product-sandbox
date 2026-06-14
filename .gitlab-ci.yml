@@ -1,0 +1,52 @@
+# GitLab Pages build for the BirdsEyeView Product Sandbox.
+#
+# Builds the shell at the site root and each app at a subpath, then publishes
+# the assembled `public/` to Pages at https://birdseyeview1.gitlab.io/product-sandbox/
+#
+#   /                -> shell
+#   /natcat/         -> Property NatCat Pricing
+#   /contingency/    -> Contingency Weather  (weather data needs the API backend,
+#                       see README; set VITE_API_BASE to your server to switch it on)
+#   /converter/      -> EDM & CEDE Converter (fully client-side)
+
+image: node:20
+
+pages:
+  stage: deploy
+  script:
+    - set -e
+    - rm -rf public && mkdir -p public
+
+    # --- Shell (site root) ---
+    - cd shell
+    - npm install
+    - SANDBOX_BASE=/product-sandbox/
+      VITE_URL_NATCAT=/product-sandbox/natcat/
+      VITE_URL_CONTINGENCY=/product-sandbox/contingency/
+      VITE_URL_EDMCEDE=/product-sandbox/converter/
+      npm run build
+    - cd ..
+    - cp -r shell/dist/. public/
+
+    # --- Property NatCat Pricing ---
+    - cd apps/natcat
+    - npm install
+    - APP_BASE=/product-sandbox/natcat/ npm run build
+    - cd ../..
+    - mkdir -p public/natcat && cp -r apps/natcat/dist/. public/natcat/
+
+    # --- Contingency Weather ---
+    - cd apps/contingency
+    - npm install
+    - APP_BASE=/product-sandbox/contingency/ npm run build
+    - cd ../..
+    - mkdir -p public/contingency && cp -r apps/contingency/dist/. public/contingency/
+
+    # --- EDM & CEDE Converter (static, client-side) ---
+    - mkdir -p public/converter
+    - cp -r apps/converter/index.html apps/converter/app.js apps/converter/style.css apps/converter/lib apps/converter/browser apps/converter/shared apps/converter/vendor apps/converter/sample public/converter/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

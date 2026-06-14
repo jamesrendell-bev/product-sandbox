@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERA® AI · EDM &amp; CEDE Converter</title>
+  <script>
+    // Inside the sandbox shell (iframe or ?embed=1)? Drop our own brand + footer.
+    if (window.self !== window.top || new URLSearchParams(location.search).has("embed")) {
+      document.documentElement.setAttribute("data-embed", "1");
+    }
+  </script>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- ExcelJS browser build: parsing + export run entirely client-side (no backend). -->
+  <script src="./vendor/exceljs.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <div>
+        <div class="brand-title">CERA<span class="reg">®</span> AI</div>
+        <div class="brand-sub">EDM &amp; CEDE Converter</div>
+      </div>
+    </div>
+    <nav class="steps" id="steps">
+      <span class="step is-active" data-step="upload">1 · Upload</span>
+      <span class="step" data-step="workbench">2 · Workbench</span>
+      <span class="step" data-step="export">3 · Export</span>
+    </nav>
+    <div class="status" id="status"></div>
+  </header>
+
+  <main>
+    <!-- ============ STEP 1: UPLOAD ============ -->
+    <section class="screen" data-screen="upload">
+      <div class="hero">
+        <h1>Turn a broker schedule into RMS EDM and Verisk CEDE in three clicks.</h1>
+        <p class="lede">
+          Upload an Excel schedule. CERA® AI classifies every location's occupancy and construction
+          against the canonical CERA taxonomy, fills gaps from class-based priors, and exports both
+          industry-standard files from a single canonical object.
+        </p>
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="fileinput" accept=".xlsx,.xlsm" hidden />
+          <div class="dropzone-inner">
+            <div class="dz-icon"></div>
+            <div class="dz-title">Drop a broker schedule here</div>
+            <div class="dz-sub">or <button type="button" class="link" id="browse">browse files</button> &middot; .xlsx / .xlsm</div>
+          </div>
+        </div>
+        <div class="tips">
+          <span class="tip"><strong>Supplied</strong> cells take priority. CERA® AI fills only what is blank.</span>
+          <span class="tip"><strong>Constrained output.</strong> CERA&reg; AI returns codes from a fixed taxonomy, never free text.</span>
+          <span class="tip"><strong>One canonical object.</strong> EDM and CEDE are two serialisations of the same data.</span>
+        </div>
+        <div class="sample-link">
+          Want a quick demo? <a href="./sample/sample-broker-input.xlsx" download>Download the sample broker submission</a>
+          and drop it back in.
+        </div>
+
+        <section class="history" id="history-panel" hidden></section>
+      </div>
+    </section>
+
+    <!-- ============ STEP 2: WORKBENCH ============ -->
+    <section class="screen" data-screen="workbench" hidden>
+      <div class="workbench-toolbar">
+        <div class="left">
+          <button class="btn ghost" id="back-upload">&larr; Submissions</button>
+          <span class="meta" id="wb-meta"></span>
+        </div>
+        <div class="middle">
+          <span class="legend"><span class="swatch supplied"></span>Supplied</span>
+          <span class="legend"><span class="swatch estimated"></span>Estimated</span>
+          <span class="legend"><span class="swatch partial"></span>Partial</span>
+          <span class="legend"><span class="swatch derived"></span>Derived</span>
+        </div>
+        <div class="right">
+          <button class="btn ghost" id="reclassify-all">Re-classify all with CERA® AI</button>
+          <button class="btn primary" id="goto-export">Continue to Export &rarr;</button>
+        </div>
+      </div>
+      <div class="wb-grid">
+        <div class="wb-table" id="wb-table" tabindex="0"></div>
+        <aside class="wb-side" id="wb-side">
+          <div class="side-empty">Select a row to see CERA® AI's reasoning and a vendor-by-vendor preview.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3: EXPORT ============ -->
+    <section class="screen" data-screen="export" hidden>
+      <div class="export-head">
+        <button class="btn ghost" id="back-workbench">&larr; Back to Workbench</button>
+        <h2>Side-by-side: RMS EDM vs Verisk CEDE</h2>
+        <p class="lede">Same canonical exposure object. Different code dictionaries, sheet names, and geocode taxonomy.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-pane">
+          <div class="diff-head"><span class="pill rms">RMS EDM</span><span class="diff-title">Moody's Risk Modeler 2.0</span></div>
+          <div class="diff-body" id="diff-rms"></div>
+          <button class="btn primary block" id="dl-edm">Download CERA-RMS-EDM-Export.xlsx</button>
+        </div>
+        <div class="diff-pane">
+          <div class="diff-head"><span class="pill cede">Verisk CEDE</span><span class="diff-title">Verisk Touchstone</span></div>
+          <div class="diff-body" id="diff-cede"></div>
+          <button class="btn primary block" id="dl-cede">Download CERA-Verisk-CEDE-Export.xlsx</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>CERA® AI &middot; BirdsEyeView</span>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

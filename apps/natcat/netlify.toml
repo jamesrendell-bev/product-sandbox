@@ -1,0 +1,29 @@
+# Netlify deploy config for the CERA® MGA AAL & Pricing Engine.
+#
+# Assumes this `app/` folder is the site root (i.e. you push `app/` as the repo,
+# or set Netlify's "Base directory" to it). If you instead push the whole
+# MGA_ClaudeCode_Dropin folder, set base = "app" below.
+
+[build]
+  # base    = "app"        # uncomment if the repo root is one level above this file
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA fallback — single-page app, all routes resolve to index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Environment variables (set in Netlify UI → Site settings → Env vars) ──────
+#   VITE_BEV_API_BASE_URL   CERA® API base URL
+#   VITE_BEV_API_KEY        CERA® X-API-Key  ← see WARNING below before setting this
+#
+# WARNING: VITE_-prefixed vars are read at BUILD time and baked into the client
+# bundle. A real VITE_BEV_API_KEY set here would be PUBLICLY READABLE in the
+# deployed JavaScript. For a public demo, deploy WITHOUT a key (stub mode).
+# Going live needs a thin server-side proxy that holds the key — see
+# MODEL_REASSESSMENT.md §"Deployment blockers".

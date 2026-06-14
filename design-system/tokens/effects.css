@@ -1,0 +1,37 @@
+/* ============================================================
+   BirdsEyeView — Effects: shadows, glows, gradients
+   Source: Style Guide §5.4 / slide 7 / slide 10
+   "navy panel with a subtle white glow on the gradient background."
+   ============================================================ */
+
+:root {
+  /* ---- Card glow (dark / gradient context) ----
+     Subtle white glow on boxes — gradient bg only. */
+  --glow-card: 0 0 0 1px rgba(255, 255, 255, 0.10),
+               0 18px 50px -20px rgba(0, 0, 0, 0.55),
+               0 0 60px -10px rgba(255, 255, 255, 0.06);
+  --glow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.18),
+                     0 22px 60px -18px rgba(0, 0, 0, 0.6),
+                     0 0 70px -8px rgba(255, 255, 255, 0.10);
+
+  /* ---- Shadows (light context — documents, light UI) ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 6, 21, 0.08);
+  --shadow-md: 0 6px 18px -6px rgba(0, 6, 21, 0.14);
+  --shadow-lg: 0 20px 48px -16px rgba(0, 6, 21, 0.20);
+
+  /* ---- Focus ring (product) ---- */
+  --focus-ring: 0 0 0 3px rgba(255, 108, 170, 0.45);
+
+  /* ---- Pink emphasis glow (CTAs, key numbers — sparing) ---- */
+  --glow-pink: 0 0 24px -6px rgba(255, 108, 170, 0.55);
+
+  /* ---- Photo overlay (hero imagery: 30–50% navy overlay) ---- */
+  --img-overlay: linear-gradient(180deg, rgba(0,6,21,0.45) 0%, rgba(0,6,21,0.65) 100%); /* @kind color */
+
+  /* ---- Transitions ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-normal: 200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+}

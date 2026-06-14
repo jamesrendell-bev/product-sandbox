@@ -1,0 +1,47 @@
+/* ============================================================
+   BirdsEyeView — Typography tokens
+   Source: Style Guide §3 + slide 4 ("Avenir Next, end to end.")
+   Weight comes from the named face — never the Bold toggle.
+   ============================================================ */
+
+:root {
+  /* ---- Family ----
+     Brand = Avenir Next (named faces). Mulish substitutes here.
+     System fallbacks per guide: Helvetica Neue, Helvetica, Aptos, Arial. */
+  --font-brand: "Mulish", "Avenir Next", "Helvetica Neue", Helvetica, Aptos, Arial, sans-serif;
+  --font-body:  var(--font-brand);
+  --font-mono:  "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+
+  /* ---- Named-face weights (the only sanctioned weights) ---- */
+  --weight-display:  300; /* Avenir Next Ultra Light — display / cover titles */
+  --weight-regular:  400; /* Avenir Next Regular — body, H1, captions */
+  --weight-demibold: 600; /* Avenir Next Demi Bold — sub-heads, card titles, eyebrows */
+  --weight-bold:     700; /* heavy emphasis (numbers, table headers) */
+
+  /* ---- Type scale (px) ----
+     Slide reference: Display 60–72 / H1 36–44 / H2 18–22 / Body 12–14 / Caption 9–10.
+     Re-pitched for screen below. */
+  --text-display-xl: 72px;
+  --text-display:    56px;
+  --text-h1:         40px;
+  --text-h2:         28px;
+  --text-h3:         22px;
+  --text-body-lg:    18px;
+  --text-body:       16px;
+  --text-body-sm:    14px;
+  --text-caption:    13px;
+  --text-eyebrow:    12px;
+
+  /* ---- Line heights ---- */
+  --leading-display: 1.04;
+  --leading-heading: 1.12;
+  --leading-body:    1.55;
+  --leading-tight:   1.25;
+
+  /* ---- Tracking ----
+     Eyebrows / section tags: ALL CAPS, ~5–10% tracked. */
+  --tracking-display: -0.01em;
+  --tracking-eyebrow: 0.16em;
+  --tracking-caps:    0.08em;
+  --tracking-normal:  0;
+}

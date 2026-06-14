@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Corner radii" subtitle="Sharp for slides · rounded + pill for product UI" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);background:#fff;padding:24px 26px;color:#000615}
+  .row{display:flex;gap:18px;align-items:flex-end}
+  .col{text-align:center}
+  .box{width:60px;height:60px;background:#164F86;border:1px solid rgba(0,6,21,.1)}
+  .n{font-size:11px;font-weight:600;margin-top:8px}
+  .v{font-size:10px;color:#5C6677}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="col"><div class="box" style="border-radius:0"></div><div class="n">none</div><div class="v">0 · slides</div></div>
+    <div class="col"><div class="box" style="border-radius:6px"></div><div class="n">sm</div><div class="v">6</div></div>
+    <div class="col"><div class="box" style="border-radius:10px"></div><div class="n">md</div><div class="v">10 · cards</div></div>
+    <div class="col"><div class="box" style="border-radius:14px"></div><div class="n">lg</div><div class="v">14</div></div>
+    <div class="col"><div class="box" style="border-radius:999px"></div><div class="n">pill</div><div class="v">buttons</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Imagery — earth from above" subtitle="Satellite / weather / hazard · dark & atmospheric · 30–50% navy overlay" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);display:flex;gap:0}
+  .tile{position:relative;flex:1;height:200px;overflow:hidden}
+  .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .tile .ov{position:absolute;inset:0;background:var(--img-overlay,linear-gradient(180deg,rgba(0,6,21,.45),rgba(0,6,21,.65)))}
+  .tile .lbl{position:absolute;left:14px;bottom:12px;color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;z-index:2}
+  .raw .ov{background:none}
+</style>
+</head>
+<body>
+  <div class="tile"><img src="../assets/backgrounds/BEV-Background-Title.jpg" alt="hero" /><div class="ov"></div><div class="lbl">Hero · 30–50% navy overlay for white type</div></div>
+  <div class="tile raw"><img src="../assets/product/cera-hazard-output.jpg" alt="hazard output" /><div class="lbl">Hazard output · warm→cool heat ramp over terrain</div></div>
+</body>
+</html>

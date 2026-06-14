@@ -1,0 +1,39 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Background motif library" subtitle="Five subtle textures for image backgrounds — pick ONE, keep it quiet · pink / white / sky only" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; }
+  .wrap { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 16px; background: #04102a; font-family: "Mulish", system-ui, sans-serif; }
+  .cell { position: relative; height: 188px; border-radius: 8px; overflow: hidden; background: linear-gradient(180deg, #000615, #0e2c4a); border: 1px solid rgba(255,255,255,0.08); }
+  .m { position: absolute; inset: 0; }
+  .lab { position: absolute; left: 12px; bottom: 11px; font-size: 11px; letter-spacing: 0.04em; color: #C6C8CD; z-index: 2; }
+  .dot { position:absolute; left:12px; top:12px; width:7px; height:7px; border-radius:50%; background:#FF6CAA; z-index:2; }
+
+  .rings { background-image: repeating-radial-gradient(circle at 100% 100%, transparent 0 26px, rgba(255,108,170,0.30) 26px 28px);
+    -webkit-mask-image: radial-gradient(85% 85% at 100% 100%, #000, transparent 72%); mask-image: radial-gradient(85% 85% at 100% 100%, #000, transparent 72%); }
+  .contours { background-image: repeating-radial-gradient(ellipse 70% 95% at 18% 24%, transparent 0 16px, rgba(198,200,205,0.18) 16px 18px);
+    -webkit-mask-image: radial-gradient(95% 95% at 16% 22%, #000, transparent 76%); mask-image: radial-gradient(95% 95% at 16% 22%, #000, transparent 76%); }
+  .mesh { --c: rgba(255,108,170,0.30); --g: 26px;
+    background-image:
+      repeating-linear-gradient(90deg,  transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g)),
+      repeating-linear-gradient(30deg,  transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g)),
+      repeating-linear-gradient(150deg, transparent 0 calc(var(--g) - 1px), var(--c) calc(var(--g) - 1px) var(--g));
+    -webkit-mask-image: radial-gradient(150% 140% at 100% 0%, #000, transparent 74%); mask-image: radial-gradient(150% 140% at 100% 0%, #000, transparent 74%); }
+  .grid { background-image: linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px); background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(118deg, #000, transparent 70%); mask-image: linear-gradient(118deg, #000, transparent 70%); }
+  .flow { background-image: repeating-linear-gradient(100deg, transparent 0 11px, rgba(11,167,252,0.16) 11px 12px);
+    -webkit-mask-image: linear-gradient(0deg, #000, transparent 72%); mask-image: linear-gradient(0deg, #000, transparent 72%); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="cell"><div class="m mesh"></div><span class="dot"></span><span class="lab">Triangular mesh</span></div>
+    <div class="cell"><div class="m rings"></div><span class="dot"></span><span class="lab">Return-period rings</span></div>
+    <div class="cell"><div class="m contours"></div><span class="dot"></span><span class="lab">Contours</span></div>
+    <div class="cell"><div class="m grid"></div><span class="dot"></span><span class="lab">Coordinate grid</span></div>
+    <div class="cell"><div class="m flow"></div><span class="dot"></span><span class="lab">Flow / isobars</span></div>
+  </div>
+</body>
+</html>

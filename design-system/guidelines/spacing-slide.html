@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Slide box-spacing system" subtitle="The deck rules — inches · equal heights · even gutters" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap" />
+<style>
+  html,body{margin:0}
+  body{font-family:var(--font-brand,"Mulish",Arial,sans-serif);background:var(--navy-900,#000615);padding:22px 24px;color:#fff}
+  .slide{position:relative;background:linear-gradient(180deg,#04102a,#0e2c4a);border-radius:6px;height:118px;padding:14px;box-sizing:border-box;display:flex;gap:9px;border:1px solid rgba(255,255,255,.08)}
+  .card{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:4px;padding:10px}
+  .ct{color:#FF6CAA;font-weight:600;font-size:11px}
+  .cb{color:#C6C8CD;font-size:9.5px;line-height:1.45;margin-top:6px}
+  .labels{display:flex;gap:22px;margin-top:12px;font-size:11px;color:#C6C8CD}
+  .labels b{color:#fff;font-weight:600}
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="card"><div class="ct">Speed to bind</div><div class="cb">Instant NatCat results. Bind or decline in seconds.</div></div>
+    <div class="card"><div class="ct">Transparent</div><div class="cb">Return periods by severity — pricing-ready and auditable.</div></div>
+    <div class="card"><div class="ct">Proprietary</div><div class="cb">ML wildfire model, ~61% better than benchmark.</div></div>
+  </div>
+  <div class="labels"><span><b>0.50in</b> margin</span><span><b>0.30in</b> gutter</span><span><b>0.35in</b> padding</span><span><b>Equal</b> heights</span></div>
+</body>
+</html>
