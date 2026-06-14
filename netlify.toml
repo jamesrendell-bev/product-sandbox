@@ -8,6 +8,30 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Contingency's data backend (Meteostat + CERA) can run as Netlify Functions.
-# The route handlers in apps/contingency/server/routes/ are the reference
-# implementation; wiring them up is the next step so weather data goes live.
+# Contingency's data backend runs as Netlify Functions (server-side, so the
+# Meteostat ground-station data has no browser CORS limit). Set VITE_BEV_API_KEY
+# in the Netlify env to switch CERA triage from stub to the live feed.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/meteostat/geocode"
+  to = "/.netlify/functions/geocode"
+  status = 200
+[[redirects]]
+  from = "/api/meteostat/geosearch"
+  to = "/.netlify/functions/geosearch"
+  status = 200
+[[redirects]]
+  from = "/api/meteostat/stations"
+  to = "/.netlify/functions/stations"
+  status = 200
+[[redirects]]
+  from = "/api/meteostat/daily"
+  to = "/.netlify/functions/daily"
+  status = 200
+[[redirects]]
+  from = "/api/cera/triage"
+  to = "/.netlify/functions/cera-triage"
+  status = 200
