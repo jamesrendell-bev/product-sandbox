@@ -5,10 +5,7 @@
    hot-pink #FF6CAA brand markers + destructive only · Mulish.
    ============================================================ */
 
-@font-face { font-family: "Mulish"; font-weight: 300; font-display: swap; src: url("/brand/fonts/mulish-light.woff") format("woff"); }
-@font-face { font-family: "Mulish"; font-weight: 400; font-display: swap; src: url("/brand/fonts/mulish-regular.woff") format("woff"); }
-@font-face { font-family: "Mulish"; font-weight: 600; font-display: swap; src: url("/brand/fonts/mulish-semibold.woff") format("woff"); }
-@font-face { font-family: "Mulish"; font-weight: 700; font-display: swap; src: url("/brand/fonts/mulish-bold.woff") format("woff"); }
+/* Mulish loads from Google Fonts (see index.html) so it works at any base path. */
 
 :root {
   --navy: #04102a;

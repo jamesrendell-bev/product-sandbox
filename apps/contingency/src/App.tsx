@@ -43,7 +43,7 @@ export default function App() {
           );
         })}
         <div className="navrail-foot">
-          <img src="/brand/bev-esa-lockup-dark.png" alt="Developed in partnership with ESA" />
+          <img src={`${import.meta.env.BASE_URL}brand/bev-esa-lockup-dark.png`} alt="Developed in partnership with ESA" />
           <div className="mode-pill"><span className="dot stub" /> Contingency weather triage · guidance only</div>
         </div>
       </nav>
