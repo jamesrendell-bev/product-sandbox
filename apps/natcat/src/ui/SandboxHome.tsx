@@ -67,7 +67,7 @@ export function SandboxHome({ onEnter }: { onEnter: (id: string) => void }) {
     <>
       <header className="bevhero">
         <div className="inner">
-          <img className="lockup" src="/brand/bev-esa-lockup-dark.png" alt="Developed in partnership with the European Space Agency" />
+          <img className="lockup" src={`${import.meta.env.BASE_URL}brand/bev-esa-lockup-dark.png`} alt="Developed in partnership with the European Space Agency" />
           <span className="eyebrow">BirdsEyeView · Product Sandbox</span>
           <h1 className="h-rule">The CERA® tools for pricing and managing catastrophe risk.</h1>
           <p>

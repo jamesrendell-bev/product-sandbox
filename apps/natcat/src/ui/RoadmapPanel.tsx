@@ -10,7 +10,7 @@ export function RoadmapPanel() {
     <div className="panel" style={{ padding: 0, overflow: "hidden" }}>
       <iframe
         ref={ref}
-        src="/roadmap.html"
+        src={`${import.meta.env.BASE_URL}roadmap.html`}
         title="CERA® MGA data flow & build status"
         style={{ width: "100%", height: 2400, border: "none", display: "block", background: "#f5f6f8" }}
         onLoad={() => {

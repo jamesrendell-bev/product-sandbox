@@ -44,7 +44,7 @@ export default function Login({ onUnlock }: { onUnlock: () => void }) {
 
       <div className="login-grid">
         <div className="login-hero">
-          <img className="login-logo" src="/brand/bev-logo.png" alt="BirdsEyeView" />
+          <img className="login-logo" src="/brand/bev-logo-trim.png" alt="BirdsEyeView" />
           <h1>
             See risk <span className="pink">clearly</span>
           </h1>

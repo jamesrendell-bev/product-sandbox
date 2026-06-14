@@ -541,7 +541,7 @@ a {
 }
 .login-logo {
   display: block;
-  width: 190px;
+  width: 96px;
   height: auto;
   margin-bottom: 30px;
 }
@@ -617,7 +617,7 @@ a {
     gap: 28px;
     padding: 40px 28px;
   }
-  .login-logo { width: 150px; margin-bottom: 20px; }
+  .login-logo { width: 80px; margin-bottom: 20px; }
   .login-esa { width: 150px; top: 16px; right: 16px; }
 }
 .field {

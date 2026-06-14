@@ -314,7 +314,7 @@ export default function App() {
       <nav className="bevnav">
         <div className="inner">
           <button className="brand" onClick={() => { setProduct(null); setMobileNav(false); }} title="BirdsEyeView Product Sandbox">
-            <img src="/brand/bev-logo-nav.svg" alt="BirdsEyeView" />
+            <img src={`${import.meta.env.BASE_URL}brand/bev-logo-nav.svg`} alt="BirdsEyeView" />
             <span className="pname">BirdsEyeView<span> · Product Sandbox</span></span>
           </button>
           {product === "natcat" ? (
@@ -349,7 +349,7 @@ export default function App() {
         <>
           <header className="bevhero">
             <div className="inner">
-              <img className="lockup" src="/brand/bev-esa-lockup-dark.png" alt="Developed in partnership with the European Space Agency" />
+              <img className="lockup" src={`${import.meta.env.BASE_URL}brand/bev-esa-lockup-dark.png`} alt="Developed in partnership with the European Space Agency" />
               <span className="eyebrow">CERA® · Property NatCat pricing</span>
               <h1 className="h-rule">Price property natural-catastrophe risk in four steps.</h1>
               <p>Take a single address or a whole bordereau. Screen it against your appetite, see the expected loss for every peril, set terms and a capital-aware price, and produce a referral in one click. Built on CERA® hazard and public vulnerability science.</p>
@@ -574,7 +574,7 @@ export default function App() {
           <p>
             Hazard {isLive(API_KEY) ? "from the live CERA® feed" : "modelled on the CERA® response"}. Vulnerability curves from published research (JRC flood, Emanuel/Eberenz tropical cyclone and wildfire, GEM earthquake). CERA® is a registered trademark of BirdsEyeView. © BirdsEyeView.
           </p>
-          <img src="/brand/bev-esa-lockup-dark.png" alt="Developed in partnership with the European Space Agency" />
+          <img src={`${import.meta.env.BASE_URL}brand/bev-esa-lockup-dark.png`} alt="Developed in partnership with the European Space Agency" />
         </div>
       </footer>
     </>
